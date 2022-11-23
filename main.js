@@ -11,6 +11,7 @@ let rectX = 100;
 let rectSize = 80
 let rectBlue = 225;
 let rectRed = 0;
+let frameCount = 0;
 
 
 // Main Program Loop (60fps)
@@ -18,7 +19,9 @@ requestAnimationFrame(loop);
 function loop(){
     // ?Update Vaqribales
     // rectX += Math.random()*10-5;
-    if(){
+    frameCount++; 
+
+    if(frameCount>180){
     rectX +=1;
     rectSize += Math.random()*2-1;
     rectBlue --;
