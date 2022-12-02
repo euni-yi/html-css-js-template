@@ -6,51 +6,52 @@ let ctx = cnv.getContext("2d")
 cnv.width = 600;
 cnv.height = 400;
 
-// Global variablwes
-let rectX = 100;
-let rectSize = 80
-let rectBlue = 225;
-let rectRed = 0;
-let frameCount = 0;
-let spaceKeyIsPressed = false;
-
-
+// Global variables
+let mouseIsPressed = false;
+let mouseX, mouseY;
+let size =5;
 // Main Program Loop (60fps)
 requestAnimationFrame(loop);
 function loop(){
-    // ?Update Vaqribales
-    // rectX += Math.random()*10-5
-    if(spaceKeyIsPressed){
-    rectX +=1;
-    rectSize += Math.random()*2-1;
-    rectBlue --;
-    rectRed++;  
-}  
-    // deraw a background
-    ctx.fillStyle = "white";
-    ctx.fillRect (0, 0, cnv.width, cnv.height);
-
-    // draw a square
-    ctx.fillStyle = "rgb("+rectRed +", 0, "+rectBlue+")";
-    ctx.fillRect(rectX, 150, rectSize , rectSize);    
+    // draw a cricle if mouse is pressed
+    if(mouseIsPressed){
+        ctx.fillStyle="black";
+        ctx.beginPath();
+        ctx.arc(mouseX, mouseY, size, 0, 2* Math.PI);
+        ctx.fill();
+    }
+  
     
     requestAnimationFrame(loop)
 }
 
-
 // event stuff
-document.addEventListener("keydown", keydownHandler)
-document.addEventListener("keyup", keyUpHandler)
+document.addEventListener("mousedown", mousedownHandler);
+document.addEventListener("mouseup", mouseupHandler);
+document.addEventListener("mousemove", mousemoveHandler)
+document.addEventListener("keydown", keydownHandler);
+
+function mousedownHandler(v  ){
+    mouseIsPressed = true;
+}
+function mouseupHandler()
+{
+    mouseIsPressed = false;
+}
+function mousemoveHandler(event){
+    let cnvRect = cnv.getBoundingClientRect();
+    mouseX = event.x - cnvRect.x;
+    mouseY = event.y - cnvRect.y;
+}
 
 function keydownHandler(event){
-    if(event.code=="Space"){
-       spaceKeyIsPressed = true;  
+    if(event.code==="Space"){
+    // deraw a background
+    ctx.fillStyle = "white";
+    ctx.fillRect (0, 0, cnv.width, cnv.height);
+    }else if(event.code =="ArrowUp"){
+        size++;
+    }else if(event.code =="ArrowDown"){
+        size--;
     }
-   
-}
-function keyUpHandler(event){
-    if(event.code=="Space"){
-       spaceKeyIsPressed = false;  
-    }
-   
 }
