@@ -45,6 +45,7 @@ function mousemoveHandler(event){
 }
 
 function keydownHandler(event){
+    console.log(event.code)
     if(event.code==="Space"){
     // deraw a background
     ctx.fillStyle = "white";
@@ -53,5 +54,11 @@ function keydownHandler(event){
         size++;
     }else if(event.code =="ArrowDown"){
         size--;
+    }else if(event.code=="Digit1"){
+        penColor = "red";
+    }else if(event.code=="Digit2"){
+        penColor = "green";
+    }else if(event.code=="Digit3"){
+        penColor = "blue";
     }
 }
