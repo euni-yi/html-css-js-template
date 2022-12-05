@@ -8,17 +8,21 @@ cnv.height = 400;
 
 // Global variables
 let mouseIsPressed = false;
-let mouseX, mouseY;
+let mouseX, mouseY, pmouseX, pmouseY;
 let size =5;
+let penColor = "black";
+
 // Main Program Loop (60fps)
 requestAnimationFrame(loop);
 function loop(){
     // draw a cricle if mouse is pressed
     if(mouseIsPressed){
-        ctx.fillStyle="black";
+        ctx.strokeStyle= penColor;
+        ctx.lineWidth = size;
         ctx.beginPath();
-        ctx.arc(mouseX, mouseY, size, 0, 2* Math.PI);
-        ctx.fill();
+        ctx.moveTo(pmouseX, pmouseY)
+        ctx.lineTo(mouseX, mouseY)
+        ctx.stroke();
     }
   
     
@@ -39,6 +43,11 @@ function mouseupHandler()
     mouseIsPressed = false;
 }
 function mousemoveHandler(event){
+    // save previous mouse x and y
+    pmouseX = mouseX;
+    pmouseY = mouseY;
+
+    // update mosueX and mousey
     let cnvRect = cnv.getBoundingClientRect();
     mouseX = event.x - cnvRect.x;
     mouseY = event.y - cnvRect.y;
@@ -56,9 +65,28 @@ function keydownHandler(event){
         size--;
     }else if(event.code=="Digit1"){
         penColor = "red";
-    }else if(event.code=="Digit2"){
-        penColor = "green";
-    }else if(event.code=="Digit3"){
-        penColor = "blue";
+    }else if(event.code ==="Digit2"){
+        penColor = "blue";   
+    }else if(event.code ==="Digit3"){
+        penColor = "green"
     }
+}
+
+// color evens
+document.getElementById("redBtn").addEventListener("click", setRed)
+document.getElementById("greenBtn").addEventListener("click", setGreen)
+document.getElementById("blueBtn").addEventListener("click", setBlue)
+document.getElementById("colorPicker").addEventListener("change", changeColor);
+
+function setRed(){
+    penColor = "red";
+}
+function setGreen(){
+    penColor = "green";
+}
+function setBlue(){
+    penColor = "blue";
+}
+function changeColor(){
+ penColor = document.getElementById("colorPicker").value;
 }
