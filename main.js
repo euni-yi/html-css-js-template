@@ -11,6 +11,8 @@ let mouseIsPressed = false;
 let mouseX, mouseY, pmouseX, pmouseY;
 let size =5;
 let penColor = "black";
+let penType1 = ctx.moveTo(pmouseX, pmouseY);
+let penType2 = ctx.lineTo(mouseX, mouseY);
 
 // Main Program Loop (60fps)
 requestAnimationFrame(loop);
@@ -20,8 +22,8 @@ function loop(){
         ctx.strokeStyle= penColor;
         ctx.lineWidth = size;
         ctx.beginPath();
-        ctx.moveTo(pmouseX, pmouseY)
-        ctx.lineTo(mouseX, mouseY)
+        penType1 = ctx.moveTo(pmouseX, pmouseY);
+        penType2 = ctx.lineTo(mouseX, mouseY);
         ctx.stroke();
     }
   
@@ -72,11 +74,12 @@ function keydownHandler(event){
     }
 }
 
-// color evens
+// button events
 document.getElementById("redBtn").addEventListener("click", setRed)
 document.getElementById("greenBtn").addEventListener("click", setGreen)
 document.getElementById("blueBtn").addEventListener("click", setBlue)
 document.getElementById("colorPicker").addEventListener("change", changeColor);
+document.getElementById("circleBtn").addEventListener("click", changePen);
 
 function setRed(){
     penColor = "red";
@@ -90,3 +93,9 @@ function setBlue(){
 function changeColor(){
  penColor = document.getElementById("colorPicker").value;
 }
+function changePen(){
+     console.log("hi")
+     penType1 = mouseX, mouseY, 1, 0, 2*Math.Pi;
+     penType2 = pmouseX, pmouseY, 1, 0, 2*Math.Pi;
+
+ }
